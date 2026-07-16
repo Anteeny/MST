@@ -1,0 +1,357 @@
+.dashboard-layout {
+  min-height: 100vh;
+  background-color: var(--color-light-gray, #f3f4f6);
+  font-family: 'Inter', sans-serif;
+  color: var(--color-dark, #1f2937);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar styles */
+.dashboard-navbar {
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.dashboard-navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.dashboard-logo {
+  text-decoration: none;
+}
+
+.logo-accent {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-primary, #0d9488);
+  letter-spacing: -0.02em;
+}
+
+.dashboard-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-welcome-badge {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.signout-btn {
+  padding: 8px 16px !important;
+  font-size: 0.9rem !important;
+}
+
+/* Content Layout */
+.dashboard-content {
+  flex: 1;
+  padding: 40px 0;
+}
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Welcome Banner */
+.welcome-banner {
+  background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 32px;
+  text-align: left;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.welcome-banner h1 {
+  margin: 0 0 8px 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.welcome-banner p {
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Responsive Grid Columns */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+}
+
+.dashboard-main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.dashboard-section {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 12px;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-dark, #111827);
+}
+
+.count-badge {
+  background-color: #f0fdfa;
+  color: #0d9488;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  border: 1px solid #ccfbf1;
+}
+
+/* Cards Grid */
+.dashboard-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.dashboard-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+/* Image placeholders matching default theme colors */
+.card-image-placeholder {
+  height: 120px;
+  background-color: #f3f4f6;
+}
+
+.active-placeholder-1 {
+  background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+}
+
+.active-placeholder-2 {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+}
+
+.completed-placeholder-1 {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.card-details {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+}
+
+.card-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  align-self: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.active-tag {
+  background-color: #ccfbf1;
+  color: #0f766e;
+}
+
+.completed-tag {
+  background-color: #fde68a;
+  color: #92400e;
+}
+
+.card-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* Progress bar */
+.progress-bar-container {
+  height: 6px;
+  background-color: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #0d9488;
+  border-radius: 999px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  gap: 8px;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.completion-date {
+  font-size: 0.8rem;
+  color: #059669;
+  font-weight: 600;
+}
+
+.completed-footer {
+  margin-top: 16px;
+}
+
+/* Interest list sidebar styles */
+.interest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.interest-item {
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.interest-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.interest-info h4 {
+  margin: 0 0 4px 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.interest-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.interest-link {
+  font-size: 0.85rem;
+  color: #0d9488;
+  text-decoration: none;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.interest-link:hover {
+  text-decoration: underline;
+}
+
+/* Account Info styles */
+.account-info-section {
+  margin-top: 16px;
+}
+
+.account-details-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.875rem;
+}
+
+.mono-text {
+  font-family: monospace;
+  background-color: #f3f4f6;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* Loading screen styles */
+.dashboard-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  gap: 16px;
+}
+
+.dashboard-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccfbf1;
+  border-top: 4px solid #0d9488;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-banner h1 {
+    font-size: 1.75rem;
+  }
+}

@@ -1,0 +1,228 @@
+.subjects-section-wrapper {
+  background-color: #f8fafc;
+  padding: 60px 0;
+}
+
+.subjects {
+  width: calc(100% - 60px);
+  max-width: calc(100% - 60px) !important;
+  margin: 0 auto;
+  padding: 60px 40px;
+  background-color: var(--color-white);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(13, 148, 136, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
+  border: 1px solid #ccfbf1;
+  overflow: hidden; /* Ensure clean bounding */
+}
+
+.slides-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.slides-wrapper {
+  display: flex;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+
+.slide-item {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.subjects-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 100% !important;
+  padding: 0 10px !important;
+  margin: 0 auto;
+}
+
+.slide-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccfbf1;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+.indicator-dot.active {
+  background-color: var(--color-primary);
+  transform: scale(1.25);
+}
+
+.indicator-dot:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.subjects-header-static {
+  padding: 0 10px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.faculty-featured-content {
+  text-align: left;
+}
+
+.faculty-badge {
+  display: inline-block;
+  background-color: #f0fdfa;
+  color: var(--color-primary-hover);
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  border: 1px solid #ccfbf1;
+}
+
+.faculty-title {
+  margin-bottom: 20px;
+  color: var(--color-dark);
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+.faculty-description {
+  font-size: 1.125rem;
+  color: var(--color-dark-gray);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.faculty-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.faculty-featured-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 340px;
+}
+
+.faculty-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 2;
+}
+
+.faculty-image-decoration {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 100%;
+  height: 100%;
+  background-color: #ccfbf1;
+  border-radius: 16px;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .subjects-container {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 24px;
+  }
+  .subjects-header-static {
+    text-align: left;
+    margin-bottom: 16px;
+  }
+  .faculty-featured-content {
+    text-align: left;
+  }
+  .faculty-title {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+  }
+  .faculty-description {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .faculty-featured-image-wrapper {
+    height: 280px;
+  }
+  .faculty-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .subjects-section-wrapper {
+    padding: 32px 0;
+  }
+  .subjects {
+    width: calc(100% - 40px);
+    padding: 32px 24px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .subjects-section-wrapper {
+    padding: 24px 0;
+  }
+  .subjects {
+    width: calc(100% - 24px);
+    padding: 24px 12px;
+    border-radius: 12px;
+  }
+  .subjects-container {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 12px;
+    padding: 0 !important;
+  }
+  .faculty-badge {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    margin-bottom: 8px;
+  }
+  .faculty-title {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+  .faculty-description {
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .faculty-featured-image-wrapper {
+    height: 160px;
+  }
+  .faculty-image-decoration {
+    top: -6px;
+    right: -6px;
+  }
+  .faculty-actions {
+    flex-direction: row;
+    gap: 8px;
+    width: 100%;
+  }
+  .faculty-actions .btn {
+    width: auto;
+    flex: 1;
+    padding: 8px 8px !important;
+    font-size: 0.72rem !important;
+    white-space: nowrap;
+  }
+}
