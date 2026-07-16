@@ -109,7 +109,7 @@ const Navbar = ({
 
           {/* Conditional rendering depending on authentication state */}
           {session ? (
-            <Link to="/dashboard" className="btn btn-primary register-btn">
+            <Link to="/dashboard" className="btn btn-primary register-btn desktop-only">
               My Dashboard
             </Link>
           ) : (
@@ -117,7 +117,7 @@ const Navbar = ({
               <Link to="/sign-in" className="btn btn-outline desktop-only">
                 {signInText}
               </Link>
-              <Link to="/register" className="btn btn-primary register-btn">
+              <Link to="/register" className="btn btn-primary register-btn desktop-only">
                 {registerText}
               </Link>
             </>
@@ -137,9 +137,14 @@ const Navbar = ({
               My Dashboard
             </Link>
           ) : (
-            <Link to="/sign-in" className="mobile-menu-link mobile-only-link" onClick={() => setIsMenuOpen(false)}>
-              {signInText}
-            </Link>
+            <>
+              <Link to="/sign-in" className="mobile-menu-link mobile-only-link" onClick={() => setIsMenuOpen(false)}>
+                {signInText}
+              </Link>
+              <Link to="/register" className="mobile-menu-link mobile-only-link" onClick={() => setIsMenuOpen(false)}>
+                {registerText}
+              </Link>
+            </>
           )}
         </div>
       )}
