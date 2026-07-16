@@ -12,6 +12,7 @@ function ActiveResizable({
   currentHeight, 
   arrayPropName,
   index,
+  className,
   children 
 }) {
   const dispatch = usePuck((state) => state.dispatch);
@@ -153,6 +154,7 @@ function ActiveResizable({
   return (
     <div 
       ref={containerRef}
+      className={className}
       style={{ 
         position: 'relative', 
         width: width, 
@@ -195,7 +197,15 @@ export default function Resizable(props) {
   if (!props.isEditing) {
     // If not in editor mode (e.g. Render mode), do not render ActiveResizable to prevent usePuck context crashes
     return (
-      <div style={{ width: props.currentWidth || "100%", height: props.currentHeight || "auto" }}>
+      <div 
+        className={props.className}
+        style={{ 
+          width: props.currentWidth || "100%", 
+          height: props.currentHeight || "auto",
+          maxWidth: '100%',
+          boxSizing: 'border-box'
+        }}
+      >
         {props.children}
       </div>
     );

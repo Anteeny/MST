@@ -14,19 +14,19 @@ export default function SubjectsPage() {
   const subjects = [
     {
       name: "School of Healing",
-      image: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      icon: "🌱",
       description: "Equipping leaders and support teams with counseling keys, trauma-informed methodologies, and recovery models to restore hearts, minds, and lives.",
       tag: "healing"
     },
     {
       name: "School of Money",
-      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      icon: "🪙",
       description: "Empowering leaders with stewardship structures, financial intelligence, and resource development frameworks to fuel sustainable impact.",
       tag: "finance"
     },
     {
       name: "School of Leadership",
-      image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      icon: "🏢",
       description: "Building administrative systems, project coordination keys, operational policies, and administrative excellence for healthy, scalable teams.",
       tag: "leadership"
     }
@@ -57,17 +57,21 @@ export default function SubjectsPage() {
       {/* Main Grid Content */}
       <main className="subjects-main-content">
         <div className="subjects-container">
+          <p className="subjects-intro-text">
+            Explore our foundational academic schools. Each school is curated with specialized programs designed to empower you in personal transformation, stewardship, and leadership.
+          </p>
+
           <div className="subjects-grid">
             {subjects.map((subject, index) => {
               const count = getCourseCount(subject.name);
               return (
                 <div key={index} className="subject-card">
-                  <div className="subject-card-image-wrapper">
-                    <img src={subject.image} alt={subject.name} className="subject-card-image" />
+                  <div className="subject-card-header">
+                    <span className="subject-icon">{subject.icon}</span>
                     <span className="subject-badge">{count} {count === 1 ? 'Course' : 'Courses'}</span>
                   </div>
                   
-                  <div className="subject-card-details">
+                  <div className="subject-card-body">
                     <h2 className="subject-card-title">{subject.name}</h2>
                     <p className="subject-card-desc">{subject.description}</p>
                   </div>

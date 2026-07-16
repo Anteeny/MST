@@ -51,8 +51,9 @@ const CourseGrid = ({
       <Resizable
         id={id}
         widthPropName="containerWidth"
-        currentWidth={containerWidth || "calc(100% - 60px)"}
+        currentWidth={containerWidth || "100%"}
         isEditing={isEditing}
+        className="course-grid-container-resizable"
       >
         <div 
           className="container course-grid-container" 
@@ -74,6 +75,7 @@ const CourseGrid = ({
                   currentWidth="100%"
                   currentHeight={course.imageHeight || "160px"}
                   isEditing={isEditing}
+                  className="course-card-image-resizable"
                 >
                   <div className="course-image-wrapper" style={{ width: '100%', height: '100%' }}>
                     <img src={course.image} alt={course.title} className="course-image" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />

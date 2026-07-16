@@ -9,7 +9,7 @@ import Resizable from './Resizable';
 const Navbar = ({
   id,
   puck,
-  logoText = "The Mirror School Academy",
+  logoText = "Mirror School of Transformation",
   logoImgSrc,
   logoWidth = "32px",
   logoHeight = "32px",
@@ -56,7 +56,14 @@ const Navbar = ({
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />
             </Resizable>
-            <span className="logo-text">{logoText}</span>
+            {logoText === "The Mirror School Academy" || logoText === "Mirror School of Transformation" ? (
+              <span className="logo-text">
+                <span className="logo-line1">MIRROR SCHOOL</span>
+                <span className="logo-line2">OF TRANSFORMATION</span>
+              </span>
+            ) : (
+              <span className="logo-text">{logoText}</span>
+            )}
           </Link>
         </div>
 
@@ -130,14 +137,9 @@ const Navbar = ({
               My Dashboard
             </Link>
           ) : (
-            <>
-              <Link to="/sign-in" className="mobile-menu-link mobile-only-link" onClick={() => setIsMenuOpen(false)}>
-                {signInText}
-              </Link>
-              <Link to="/register" className="mobile-menu-link mobile-only-link" onClick={() => setIsMenuOpen(false)}>
-                {registerText}
-              </Link>
-            </>
+            <Link to="/sign-in" className="mobile-menu-link mobile-only-link" onClick={() => setIsMenuOpen(false)}>
+              {signInText}
+            </Link>
           )}
         </div>
       )}

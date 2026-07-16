@@ -10,7 +10,7 @@ export const initialData = {
       type: "Navbar",
       props: {
         id: "Navbar-1",
-        logoText: "The Mirror School Academy",
+        logoText: "Mirror School of Transformation",
         signInText: "Sign in",
         registerText: "Register"
       }
@@ -103,10 +103,38 @@ export const initialData = {
       }
     },
     {
+      type: "Testimonials",
+      props: {
+        id: "Testimonials-1",
+        title: "What Our Learners Say",
+        subtitle: "Stories of transformation, restoration, and growth from our global community",
+        testimonials: [
+          {
+            name: "Sarah Jenkins",
+            role: "Mental Health Professional",
+            text: "The Trauma-Informed Care course was incredibly transformative. It gave me both clinical and faith-based counseling frameworks that completely changed my practice.",
+            rating: 5
+          },
+          {
+            name: "David Kojo",
+            role: "Community Pastor",
+            text: "Stewardship Keys and Financial Intelligence helped us structure our community projects for real sustainability. The policy manuals and budgets tools were directly applicable.",
+            rating: 5
+          },
+          {
+            name: "Elena Rostova",
+            role: "Peer Facilitator",
+            text: "Addiction Recovery: Train the Trainer gave me the tools and confidence to lead support groups. The group dynamics and recovery models are outstanding.",
+            rating: 5
+          }
+        ]
+      }
+    },
+    {
       type: "Footer",
       props: {
         id: "Footer-1",
-        copyrightText: "The Mirror School Academy."
+        copyrightText: "Mirror School of Transformation."
       }
     }
   ],

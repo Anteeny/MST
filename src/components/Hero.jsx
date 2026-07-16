@@ -30,6 +30,7 @@ const Hero = ({
         widthPropName="containerWidth"
         currentWidth={containerWidth || "90%"}
         isEditing={isEditing}
+        className="hero-container-resizable"
       >
         <div 
           className="container hero-container" 
@@ -39,10 +40,13 @@ const Hero = ({
             ...(gap ? { gap: gap } : {})
           }}
         >
+          {/* Left Column: Text content */}
           <div className="hero-content">
             <h1 className="heading-xl hero-title" style={titleSize ? { fontSize: titleSize } : {}}>{title}</h1>
             <p className="hero-subtitle" style={subtitleSize ? { fontSize: subtitleSize } : {}}>{subtitle}</p>
-            <div className="hero-actions">
+            
+            {/* Desktop Button - Hidden on mobile viewports */}
+            <div className="hero-actions desktop-button">
               <a 
                 href={buttonUrl} 
                 className="btn btn-primary btn-lg"
@@ -55,6 +59,8 @@ const Hero = ({
               </a>
             </div>
           </div>
+
+          {/* Right Column: Image and Mobile button */}
           <div className="hero-image-container-wrapper">
             <Resizable
               id={id}
@@ -63,6 +69,7 @@ const Hero = ({
               currentWidth={imageWidth || "100%"}
               currentHeight={imageHeight || "420px"}
               isEditing={isEditing}
+              className="hero-image-resizable"
             >
               <div className="hero-image-wrapper" style={{ width: '100%', height: '100%', position: 'relative' }}>
                 <img
@@ -94,6 +101,20 @@ const Hero = ({
                 ></div>
               </div>
             </Resizable>
+
+            {/* Mobile Button - Visible on mobile/tablet viewports, rendered below the image */}
+            <div className="hero-actions mobile-button-wrapper">
+              <a 
+                href={buttonUrl} 
+                className="btn btn-primary btn-lg"
+                style={{
+                  ...(buttonPadding ? { padding: buttonPadding } : {}),
+                  ...(buttonBgColor ? { backgroundColor: buttonBgColor } : {})
+                }}
+              >
+                {buttonText}
+              </a>
+            </div>
           </div>
         </div>
       </Resizable>

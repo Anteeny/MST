@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import Partners from "./components/Partners";
 import Subjects from "./components/Subjects";
 import CourseGrid from "./components/CourseGrid";
+import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 
 export const config = {
@@ -106,6 +107,24 @@ export const config = {
         }
       },
       render: (props) => <CourseGrid {...props} />
+    },
+    Testimonials: {
+      fields: {
+        title: { type: "text", contentEditable: true },
+        subtitle: { type: "textarea", contentEditable: true },
+        testimonials: {
+          type: "array",
+          getItemSummary: (item) => item.name || "Testimony Slide",
+          arrayFields: {
+            name: { type: "text", contentEditable: true },
+            role: { type: "text", contentEditable: true },
+            text: { type: "textarea", contentEditable: true },
+            avatarUrl: { type: "text" },
+            rating: { type: "number", min: 1, max: 5 }
+          }
+        }
+      },
+      render: (props) => <Testimonials {...props} />
     },
     Footer: {
       fields: {

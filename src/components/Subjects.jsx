@@ -53,8 +53,9 @@ const Subjects = ({
       <Resizable
         id={id}
         widthPropName="containerWidth"
-        currentWidth={containerWidth || "calc(100% - 60px)"}
+        currentWidth={containerWidth || "100%"}
         isEditing={isEditing}
+        className="subjects-container-resizable"
       >
         <div 
           className="subjects" 
@@ -88,6 +89,7 @@ const Subjects = ({
                       currentWidth={faculty.imageWidth || "100%"}
                       currentHeight={faculty.imageHeight || "340px"}
                       isEditing={isEditing}
+                      className="subjects-image-resizable"
                     >
                       <img
                         src={faculty.image}

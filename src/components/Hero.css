@@ -6,43 +6,65 @@
 
 .hero-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: 1fr 1fr; /* Equal columns to make the image bigger */
+  gap: 32px;
   align-items: center;
   max-width: 90% !important;
   padding: 0 40px !important;
+  margin: 0 auto;
 }
 
 .hero-content {
   max-width: 540px;
+  text-align: left;
 }
 
 .hero-title {
-  margin-bottom: 50px;
+  margin-bottom: 24px;
+  font-size: 2.5rem; /* Shrunk to look like header 1/2 */
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-dark, #0f172a);
 }
 
 .hero-subtitle {
-  font-size: 1.45rem;
-  color: var(--color-dark-gray);
+  font-size: 1rem; /* Set to standard 1rem (16px) body text font size */
+  color: var(--color-dark-gray, #64748b);
   margin-bottom: 32px;
   line-height: 1.6;
 }
 
 .btn-lg {
-  padding: 16px 32px;
-  font-size: 1.5rem;
+  padding: 12px 24px; /* Scaled down padding to match typography */
+  font-size: 0.95rem; /* Scaled down font-size to match typography */
+  font-weight: 600;
+  border-radius: 8px;
+  display: inline-block;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+/* Ensure the button is always in the left column matching web layout */
+.desktop-button {
+  display: block;
+}
+
+.mobile-button-wrapper {
+  display: none !important;
 }
 
 .hero-image-container-wrapper {
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  transform: translateX(70px);
-  /* Shift even further to the right */
+  transform: translateX(100px); /* Shift even further to the right */
+  position: relative;
 }
 
 .hero-image-wrapper {
   position: relative;
+  width: 100%;
 }
 
 .hero-image {
@@ -54,10 +76,11 @@
   z-index: 2;
 }
 
+/* Base green decoration behind the image - offset matches screenshot exactly */
 .hero-decoration {
   position: absolute;
-  top: -24px;
-  right: -24px;
+  top: -24px !important;
+  right: -24px !important;
   width: 100%;
   height: 100%;
   background-color: var(--color-primary);
@@ -65,68 +88,164 @@
   z-index: 1;
 }
 
+/* Proportional scaling wrapper */
+.hero-image-resizable {
+  width: 100% !important;
+  aspect-ratio: 3 / 2 !important;
+  height: auto !important;
+}
+
+/* TABLET RESPONSIVENESS (2-column layout continues) */
 @media (max-width: 900px) {
   .hero {
-    padding: 60px 0;
+    padding: 40px 0;
   }
 
   .hero-container {
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 28px;
+    grid-template-columns: 1.05fr 0.95fr; /* Give more space to the text column */
+    gap: 20px;
     padding: 0 24px !important;
   }
 
+  .hero-image-container-wrapper {
+    transform: translateX(75px);
+  }
+
   .hero-title {
-    font-size: 2rem !important;
+    font-size: 1.8rem;
     margin-bottom: 16px;
   }
 
   .hero-subtitle {
-    font-size: 1rem;
+    font-size: 0.95rem; /* Proportional text size */
     margin-bottom: 24px;
     line-height: 1.5;
   }
 
   .btn-lg {
-    padding: 12px 24px;
-    font-size: 1rem;
+    padding: 10px 20px;
+    font-size: 0.85rem;
   }
 
+  /* Shrink background decoration offset proportionally */
   .hero-decoration {
-    top: -16px;
-    right: -16px;
+    top: -16px !important;
+    right: -16px !important;
   }
 }
 
-@media (max-width: 600px) {
-  .hero {
-    padding: 32px 0;
+/* SMALL TABLETS & PORTRAIT VIEWPUNCHES (Remains 2 Columns) */
+@media (max-width: 768px) {
+  .hero-container {
+    grid-template-columns: 1.1fr 0.9fr; /* Keep 2-column layout */
+    gap: 16px;
+    padding: 0 20px !important;
   }
 
-  .hero-container {
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 16px;
-    padding: 0 16px !important;
+  .hero-image-container-wrapper {
+    transform: translateX(60px); /* Proportional shift to the right */
   }
 
   .hero-title {
-    font-size: 1.25rem !important;
-    margin-bottom: 10px;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
   }
 
   .hero-subtitle {
-    font-size: 0.8rem;
-    margin-bottom: 14px;
+    font-size: 0.9rem; /* Proportional text size */
+    margin-bottom: 20px;
     line-height: 1.4;
   }
 
   .btn-lg {
-    padding: 8px 16px !important;
-    font-size: 0.8rem !important;
+    padding: 8px 16px;
+    font-size: 0.78rem;
   }
 
+  /* Shrink background decoration offset proportionally */
   .hero-decoration {
-    top: -8px;
-    right: -8px;
+    top: -12px !important;
+    right: -12px !important;
+  }
+
+  .hero-image-resizable {
+    width: 100% !important;
+    aspect-ratio: 3 / 2 !important;
+    height: auto !important;
+    max-width: none; /* Remove size limitations to make the image bigger */
+    margin: 0 auto;
+  }
+}
+
+/* MOBILE RESPONSIVENESS (Remains 2 Columns to mirror Web Viewport exactly) */
+@media (max-width: 600px) {
+  .hero {
+    padding: 24px 0;
+  }
+
+  .hero-container {
+    grid-template-columns: 1.15fr 0.85fr; /* Give text column slightly more space on mobile */
+    gap: 12px;
+    padding: 0 16px !important;
+    max-width: 95% !important; /* Increase container size to give text more breathing room */
+  }
+
+  .hero-title {
+    font-size: 1.3rem !important; /* Matches standard mobile section header size */
+    margin-bottom: 8px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.85rem; /* Proportional text size */
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+
+  .btn-lg {
+    padding: 8px 14px !important;
+    font-size: 0.72rem !important;
+    border-radius: 6px;
+  }
+
+  .hero-image-container-wrapper {
+    transform: translateX(45px); /* Proportional shift to the right */
+  }
+
+  /* Shrink background decoration offset proportionally */
+  .hero-decoration {
+    top: -10px !important;
+    right: -10px !important;
+  }
+}
+
+/* NARROW PHONES */
+@media (max-width: 400px) {
+  .hero-container {
+    gap: 8px;
+    max-width: 100% !important; /* Spans full width to maximize text space */
+  }
+
+  .hero-title {
+    font-size: 1.1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.75rem; /* Proportional text size */
+    margin-bottom: 10px;
+  }
+
+  .btn-lg {
+    padding: 6px 10px !important;
+    font-size: 0.62rem !important;
+  }
+
+  .hero-image-container-wrapper {
+    transform: translateX(30px); /* Proportional shift to the right */
+  }
+
+  /* Shrink background decoration offset proportionally */
+  .hero-decoration {
+    top: -6px !important;
+    right: -6px !important;
   }
 }

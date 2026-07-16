@@ -263,23 +263,3 @@
   color: #6b7280;
 }
 
-@media (max-width: 768px) {
-  .filter-tabs-container {
-    justify-content: flex-start;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 4px 4px 12px 4px;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none; /* Firefox */
-  }
-  .filter-tabs-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
-  .filter-tab {
-    flex-shrink: 0;
-    scroll-snap-align: start;
-  }
-}
-
-

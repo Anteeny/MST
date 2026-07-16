@@ -5,7 +5,7 @@ import Resizable from './Resizable';
 const Footer = ({
   id,
   puck,
-  copyrightText = `The Mirror School Academy.`,
+  copyrightText = `Mirror School of Transformation.`,
   containerWidth,
   paddingY
 }) => {
@@ -38,7 +38,7 @@ const Footer = ({
               </ul>
             </div>
             <div className="footer-col">
-              <h4 className="footer-heading">The Mirror School Academy</h4>
+              <h4 className="footer-heading">Mirror School of Transformation</h4>
               <ul className="footer-links">
                 <li><a href="#">About us</a></li>
                 <li><a href="#">Learning online</a></li>
