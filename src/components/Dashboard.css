@@ -354,4 +354,23 @@
   .welcome-banner h1 {
     font-size: 1.75rem;
   }
+
+  .dashboard-navbar-container,
+  .dashboard-container {
+    padding: 0 16px !important;
+  }
+
+  .dashboard-navbar-container .logo-text {
+    display: none;
+  }
+
+  .user-welcome-badge {
+    font-size: 0.8rem !important;
+    margin-right: 8px !important;
+  }
+
+  .signout-btn {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+  }
 }

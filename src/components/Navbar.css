@@ -340,6 +340,10 @@
 }
 
 @media (max-width: 1024px) {
+  .navbar-container {
+    max-width: 100% !important;
+    padding: 5px 24px !important;
+  }
   .desktop-only {
     display: none !important;
   }
@@ -350,6 +354,12 @@
   }
   .mobile-only-btn {
     display: inline-block !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-container {
+    padding: 5px 16px !important;
   }
 }
 
