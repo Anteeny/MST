@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import { supabase } from "./supabaseClient";
 import { Render } from "@puckeditor/core";
 import { config } from "./puck.config";
 import AdminEditor, { initialData } from "./AdminEditor";
@@ -8,6 +9,7 @@ import Dashboard from "./components/Dashboard";
 import CoursesPage from "./components/CoursesPage";
 import CourseDetailPage from "./components/CourseDetailPage";
 import SubjectsPage from "./components/SubjectsPage";
+import AboutUsPage from "./components/AboutUsPage";
 
 function HomeView() {
   const [data, setData] = useState(initialData);
@@ -50,42 +52,53 @@ function HomeView() {
     <div style={{ position: "relative", minHeight: "100vh" }}>
       {/* Standalone production website view */}
       <Render config={config} data={data} />
-
-      {/* Floating admin trigger button */}
-      <Link 
-        to="/admin" 
-        style={{
-          position: "fixed",
-          bottom: "24px",
-          right: "24px",
-          backgroundColor: "#0d9488",
-          color: "white",
-          padding: "12px 20px",
-          borderRadius: "30px",
-          fontWeight: "600",
-          fontSize: "0.9rem",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-          zIndex: 99999,
-          textDecoration: "none",
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          transition: "transform 0.2s ease, background-color 0.2s ease",
-          fontFamily: "Inter, sans-serif"
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "scale(1.05)";
-          e.currentTarget.style.backgroundColor = "#0f766e";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "scale(1)";
-          e.currentTarget.style.backgroundColor = "#0d9488";
-        }}
-      >
-        <span>✏️</span> Edit Website
-      </Link>
     </div>
   );
+}
+
+function ProtectedRoute({ children }) {
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+
+    const checkSession = async () => {
+      const { data: { session: currentSession } } = await supabase.auth.getSession();
+      if (active) {
+        setSession(currentSession);
+        setLoading(false);
+      }
+    };
+
+    checkSession();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, currentSession) => {
+      if (active) {
+        setSession(currentSession);
+      }
+    });
+
+    return () => {
+      active = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'sans-serif', color: '#0d9488' }}>
+        <h3>Loading session...</h3>
+      </div>
+    );
+  }
+
+  if (!session) {
+    const target = window.location.pathname + window.location.search;
+    return <Navigate to={`/sign-in?redirectTo=${encodeURIComponent(target)}`} replace />;
+  }
+
+  return children;
 }
 
 function App() {
@@ -104,9 +117,31 @@ function App() {
         <Route path="/sign-in" element={<AuthPage defaultMode="signin" />} />
         <Route path="/register" element={<AuthPage defaultMode="register" />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/courses" element={<CoursesPage />} />
-        <Route path="/courses/:id" element={<CourseDetailPage />} />
-        <Route path="/subjects" element={<SubjectsPage />} />
+        <Route 
+          path="/courses" 
+          element={
+            <ProtectedRoute>
+              <CoursesPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/courses/:id" 
+          element={
+            <ProtectedRoute>
+              <CourseDetailPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/subjects" 
+          element={
+            <ProtectedRoute>
+              <SubjectsPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route path="/about-us" element={<AboutUsPage />} />
         {/* Redirect unknown routes back to home page */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

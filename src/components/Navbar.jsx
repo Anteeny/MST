@@ -20,6 +20,7 @@ const Navbar = ({
   const isEditing = puck?.isEditing;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [session, setSession] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Monitor the user session state using Supabase auth listener
   useEffect(() => {
@@ -90,13 +91,50 @@ const Navbar = ({
             </div>
           </div>
 
-          <Link to="/using-mirror-school" className="nav-link text-link" style={{ textDecoration: 'none' }}>
-            Using Mirror School
-          </Link>
+          <div className="nav-dropdown-wrapper">
+            <Link to="/about-us" className="nav-link">
+              About Us <ChevronDown size={16} />
+            </Link>
+            <div className="dropdown-menu">
+              <Link to="/about-us#team" className="dropdown-item">Meet the Team</Link>
+              <Link to="/about-us#books" className="dropdown-item">Books & Materials</Link>
+              <Link to="/about-us#counselor" className="dropdown-item">Talk to a Counselor</Link>
+            </div>
+          </div>
         </nav>
 
         <div className="navbar-right">
-          <button className="icon-btn" aria-label="Search">
+          <form 
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (searchQuery.trim()) {
+                window.location.href = `/courses?search=${encodeURIComponent(searchQuery.trim())}`;
+              }
+            }}
+            className="navbar-search-form desktop-only"
+          >
+            <div className="search-input-wrapper">
+              <input
+                type="text"
+                className="navbar-static-search-input"
+                placeholder="Search courses..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button type="submit" className="static-search-submit-btn" aria-label="Search">
+                <Search size={16} />
+              </button>
+            </div>
+          </form>
+
+          <button 
+            type="button" 
+            className="icon-btn mobile-only-search-btn" 
+            aria-label="Search"
+            onClick={() => {
+              window.location.href = '/courses';
+            }}
+          >
             <Search size={20} />
           </button>
           <button
@@ -109,9 +147,14 @@ const Navbar = ({
 
           {/* Conditional rendering depending on authentication state */}
           {session ? (
-            <Link to="/dashboard" className="btn btn-primary register-btn desktop-only">
-              My Dashboard
-            </Link>
+            <>
+              <Link to="/dashboard" className="btn btn-primary register-btn desktop-only">
+                My Dashboard
+              </Link>
+              <Link to="/dashboard" className="btn btn-primary register-btn mobile-only-btn">
+                Dashboard
+              </Link>
+            </>
           ) : (
             <>
               <Link to="/sign-in" className="btn btn-outline desktop-only">
@@ -119,6 +162,9 @@ const Navbar = ({
               </Link>
               <Link to="/register" className="btn btn-primary register-btn desktop-only">
                 {registerText}
+              </Link>
+              <Link to="/sign-in" className="btn btn-outline mobile-only-btn">
+                {signInText}
               </Link>
             </>
           )}
@@ -128,10 +174,34 @@ const Navbar = ({
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
         <div className="mobile-menu">
+          <form 
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (searchQuery.trim()) {
+                setIsMenuOpen(false);
+                window.location.href = `/courses?search=${encodeURIComponent(searchQuery.trim())}`;
+              }
+            }}
+            className="mobile-search-form"
+          >
+            <input
+              type="text"
+              className="mobile-search-input"
+              placeholder="Search courses..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button type="submit" className="mobile-search-submit-btn">
+              <Search size={16} />
+            </button>
+          </form>
           <Link to="/" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
+          <Link to="/about-us" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>About Us</Link>
+          <Link to="/about-us#team" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Meet the Team</Link>
+          <Link to="/about-us#books" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Books & Materials</Link>
+          <Link to="/about-us#counselor" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Talk to a Counselor</Link>
           <Link to="/subjects" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>Subjects</Link>
           <Link to="/courses" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>Courses</Link>
-          <Link to="/using-mirror-school" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>Using Mirror School</Link>
           {session ? (
             <Link to="/dashboard" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
               My Dashboard

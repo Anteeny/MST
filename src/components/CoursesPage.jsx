@@ -22,10 +22,18 @@ export default function CoursesPage() {
     }
   };
 
-  // Filter courses list based on chosen active subject classification
-  const filteredCourses = activeSubject === 'All'
-    ? coursesList
-    : coursesList.filter(course => course.subject === activeSubject);
+  const searchQuery = searchParams.get('search') || '';
+
+  // Filter courses list based on chosen active subject classification and search query query parameter
+  const filteredCourses = coursesList.filter(course => {
+    const matchesSubject = activeSubject === 'All' || course.subject === activeSubject;
+    const matchesSearch = !searchQuery || 
+      course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      course.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (course.description && course.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (course.overview && course.overview.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesSubject && matchesSearch;
+  });
 
   return (
     <div className="courses-page-layout">
@@ -61,9 +69,35 @@ export default function CoursesPage() {
             ))}
           </div>
 
+          {searchQuery && (
+            <div className="search-query-indicator" style={{ marginBottom: '24px', fontSize: '1rem', color: 'var(--color-dark-gray)' }}>
+              Showing results for "<strong>{searchQuery}</strong>" 
+              <button 
+                onClick={() => {
+                  const newParams = {};
+                  if (activeSubject !== 'All') {
+                    newParams.subject = activeSubject;
+                  }
+                  setSearchParams(newParams);
+                }}
+                style={{ 
+                  marginLeft: '12px', 
+                  background: 'none', 
+                  color: 'var(--color-primary)', 
+                  border: 'none', 
+                  textDecoration: 'underline', 
+                  cursor: 'pointer',
+                  fontWeight: '600'
+                }}
+              >
+                Clear search
+              </button>
+            </div>
+          )}
+
           {filteredCourses.length === 0 ? (
             <div className="empty-courses-state">
-              <p>No courses found under this subject.</p>
+              <p>{searchQuery ? 'No courses found matching your search.' : 'No courses found under this subject.'}</p>
             </div>
           ) : (
             <div className="courses-grid">

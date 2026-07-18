@@ -195,6 +195,21 @@
   border: 1px solid #6ee7b7;
 }
 
+.auth-alert.warning {
+  background-color: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fcd34d;
+}
+
+.auth-alert.warning code {
+  background-color: #fef3c7;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85em;
+  color: #78350f;
+}
+
 @media (max-width: 480px) {
   .auth-card {
     padding: 24px 16px;

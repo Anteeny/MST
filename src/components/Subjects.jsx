@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Subjects.css';
 import Resizable from './Resizable';
 
@@ -28,6 +29,24 @@ const defaultFeaturedFaculties = [
     alt: "Financial strategy session"
   }
 ];
+
+const getExploreUrl = (title, exploreUrl) => {
+  if (!title) return exploreUrl || '/courses';
+  const cleanTitle = title.trim().toLowerCase();
+  if (cleanTitle.includes('healing')) {
+    return '/courses?subject=School of Healing';
+  }
+  if (cleanTitle.includes('finance') || cleanTitle.includes('money') || cleanTitle.includes('administration')) {
+    return '/courses?subject=School of Money';
+  }
+  if (cleanTitle.includes('leadership')) {
+    return '/courses?subject=School of Leadership';
+  }
+  if (cleanTitle.includes('personal transformation')) {
+    return '/courses';
+  }
+  return exploreUrl || '/courses';
+};
 
 const Subjects = ({
   id,
@@ -75,8 +94,8 @@ const Subjects = ({
                     <h2 className="heading-xl faculty-title" style={faculty.titleSize ? { fontSize: faculty.titleSize } : {}}>{faculty.title}</h2>
                     <p className="faculty-description" style={faculty.descriptionSize ? { fontSize: faculty.descriptionSize } : {}}>{faculty.description}</p>
                     <div className="faculty-actions">
-                      <a href={faculty.exploreUrl} className="btn btn-primary">Explore courses</a>
-                      <a href="/faculties" className="btn btn-outline">View all faculties</a>
+                      <Link to={getExploreUrl(faculty.title, faculty.exploreUrl)} className="btn btn-primary">Explore courses</Link>
+                      <Link to="/subjects" className="btn btn-outline">View all faculties</Link>
                     </div>
                   </div>
                   <div className="faculty-featured-image-wrapper">

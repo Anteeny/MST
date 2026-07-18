@@ -24,19 +24,22 @@
   margin: 0 auto !important;
 }
 
-/* Header bar displaying the main section title and the "View all courses" action button */
-.course-grid-header {
-  /* Layout: displays title and button side-by-side using flexbox */
+/* Header box styling - styled as a white container card box */
+.course-grid-header-box {
   display: flex;
-  /* Layout: vertically centers the title text and button with each other */
   align-items: center;
-  /* Layout: pushes the title to the left edge and the button to the right edge */
   justify-content: space-between;
-  /* Spacing: adds 40px of empty space below the header before the courses grid starts */
+  padding: 32px 40px;
+  background-color: var(--color-white);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(13, 148, 136, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
+  border: 1px solid #ccfbf1;
+  overflow: hidden;
+  box-sizing: border-box;
   margin-bottom: 40px;
 }
 
-.course-grid-header .section-title {
+.course-grid-header-box .section-title {
   font-size: 1.75rem; /* Shrunk to match unified h2 header size */
   font-weight: 800;
   line-height: 1.2;
@@ -209,17 +212,19 @@
   }
 
   /* Compacts header layout spacing on tablet screens */
-  .course-grid-header {
+  .course-grid-header-box {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
     margin-bottom: 24px;
+    padding: 24px 20px;
+    border-radius: 16px;
   }
 
   /* Decreases title font size to fit smaller viewports */
-  .course-grid-header .section-title {
+  .course-grid-header-box .section-title {
     font-size: 1.4rem !important; /* Shrunk to match tablet h2 scale */
   }
 
@@ -241,17 +246,19 @@
   }
 
   /* Compacts header bottom margin spacing */
-  .course-grid-header {
+  .course-grid-header-box {
     margin-bottom: 16px;
+    padding: 16px 12px;
+    border-radius: 12px;
   }
 
   /* Reduces title font size to fit mobile viewports */
-  .course-grid-header .section-title {
+  .course-grid-header-box .section-title {
     font-size: 1.2rem !important; /* Shrunk to match mobile h2 scale */
   }
 
   /* Reduces header button text font size and padding */
-  .course-grid-header .btn-outline {
+  .course-grid-header-box .btn-outline {
     font-size: 0.75rem !important;
     padding: 6px 12px !important;
   }

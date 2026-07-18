@@ -4,7 +4,9 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
 // Gracefully handle missing environment variables in local development to avoid client crashes
-export const supabase = (supabaseUrl && supabaseAnonKey)
+export const isSupabaseConfigured = !!(supabaseUrl && supabaseAnonKey);
+
+export const supabase = isSupabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey)
   : {
       auth: {

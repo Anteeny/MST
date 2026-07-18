@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { coursesList } from '../data/coursesData';
 import './CourseGrid.css';
 import Resizable from './Resizable';
 
@@ -59,39 +61,46 @@ const CourseGrid = ({
           className="container course-grid-container" 
           style={{ width: '100%', maxWidth: '100%' }}
         >
-          <div className="course-grid-header">
+          <div className="course-grid-header-box">
             <h2 className="heading-lg section-title" style={titleSize ? { fontSize: titleSize } : {}}>{title}</h2>
-            <a href={buttonUrl} className="btn btn-outline">{buttonText}</a>
+            <Link to={buttonUrl} className="btn btn-outline">{buttonText}</Link>
           </div>
           <div className="course-grid">
-            {courses.map((course, index) => (
-              <div key={index} className="course-card">
-                <Resizable
-                  id={id}
-                  widthPropName="dummy" // We don't change width, only height
-                  heightPropName="imageHeight"
-                  arrayPropName="courses"
-                  index={index}
-                  currentWidth="100%"
-                  currentHeight={course.imageHeight || "160px"}
-                  isEditing={isEditing}
-                  className="course-card-image-resizable"
-                >
-                  <div className="course-image-wrapper" style={{ width: '100%', height: '100%' }}>
-                    <img src={course.image} alt={course.title} className="course-image" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <span className="course-type-badge">{course.type}</span>
-                  </div>
-                </Resizable>
-                <div className="course-content">
-                  <p className="course-uni">{course.university}</p>
-                  <h3 className="course-title">{course.title}</h3>
-                  <div className="course-footer">
-                    <span className="course-duration">{course.duration}</span>
-                    <a href={`/courses/${index}`} className="btn btn-primary btn-sm">Find out more</a>
+            {courses.map((course, index) => {
+              const matchedCourse = coursesList.find(
+                c => c.title.toLowerCase() === course.title.toLowerCase()
+              );
+              const detailUrl = matchedCourse ? `/courses/${matchedCourse.id}` : `/courses`;
+
+              return (
+                <div key={index} className="course-card">
+                  <Resizable
+                    id={id}
+                    widthPropName="dummy" // We don't change width, only height
+                    heightPropName="imageHeight"
+                    arrayPropName="courses"
+                    index={index}
+                    currentWidth="100%"
+                    currentHeight={course.imageHeight || "160px"}
+                    isEditing={isEditing}
+                    className="course-card-image-resizable"
+                  >
+                    <div className="course-image-wrapper" style={{ width: '100%', height: '100%' }}>
+                      <img src={course.image} alt={course.title} className="course-image" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <span className="course-type-badge">{course.type}</span>
+                    </div>
+                  </Resizable>
+                  <div className="course-content">
+                    <p className="course-uni">{course.university}</p>
+                    <h3 className="course-title">{course.title}</h3>
+                    <div className="course-footer">
+                      <span className="course-duration">{course.duration}</span>
+                      <Link to={detailUrl} className="btn btn-primary btn-sm">Find out more</Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </Resizable>

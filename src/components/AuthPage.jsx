@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { supabase } from '../supabaseClient';
+import { supabase, isSupabaseConfigured } from '../supabaseClient';
 import './AuthPage.css';
 
 export default function AuthPage({ defaultMode = 'signin' }) {
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Extract redirect path if present (e.g. from query params)
+  const queryParams = new URLSearchParams(location.search);
+  const redirectTo = queryParams.get('redirectTo') || '/dashboard';
 
   // Decide whether we are in signin or register mode based on props or URL path
   const isRegisterMode = location.pathname.includes('/register') || defaultMode === 'register';
@@ -17,16 +21,16 @@ export default function AuthPage({ defaultMode = 'signin' }) {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
-  // Check if session already exists, if so redirect to dashboard
+  // Check if session already exists, if so redirect
   useEffect(() => {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        navigate('/dashboard');
+        navigate(redirectTo);
       }
     };
     checkUser();
-  }, [navigate]);
+  }, [navigate, redirectTo]);
 
   const getFriendlyErrorMessage = (error) => {
     if (!error) return '';
@@ -62,7 +66,7 @@ export default function AuthPage({ defaultMode = 'signin' }) {
         // Supabase sends a confirmation email by default unless disabled.
         // We show a helpful message and still redirect if auto-confirmed.
         if (data?.session) {
-          navigate('/dashboard');
+          navigate(redirectTo);
         } else {
           setSuccessMsg('Registration successful! Please check your email to verify your account.');
           // Clear inputs
@@ -81,7 +85,7 @@ export default function AuthPage({ defaultMode = 'signin' }) {
       if (error) {
         setErrorMsg(error.message);
       } else {
-        navigate('/dashboard');
+        navigate(redirectTo);
       }
     }
     setLoading(false);
@@ -114,6 +118,14 @@ export default function AuthPage({ defaultMode = 'signin' }) {
             {isRegisterMode ? 'Start learning from our top faculties today' : 'Welcome back! Please enter your details'}
           </p>
         </div>
+
+        {!isSupabaseConfigured && (
+          <div className="auth-alert warning">
+            <strong>Supabase is not configured yet.</strong><br/>
+            If you are running in production on Vercel, please make sure you set the 
+            <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code> environment variables in your Vercel Project Settings.
+          </div>
+        )}
 
         {errorMsg && <div className="auth-alert error">{errorMsg}</div>}
         {successMsg && <div className="auth-alert success">{successMsg}</div>}
