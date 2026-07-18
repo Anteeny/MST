@@ -32,6 +32,15 @@ export default function AuthPage({ defaultMode = 'signin' }) {
     checkUser();
   }, [navigate, redirectTo]);
 
+  // Clear messages and input values when toggling between sign-in and register modes
+  useEffect(() => {
+    setErrorMsg('');
+    setSuccessMsg('');
+    setEmail('');
+    setPassword('');
+    setFullName('');
+  }, [location.pathname]);
+
   const getFriendlyErrorMessage = (error) => {
     if (!error) return '';
 
@@ -121,8 +130,8 @@ export default function AuthPage({ defaultMode = 'signin' }) {
 
         {!isSupabaseConfigured && (
           <div className="auth-alert warning">
-            <strong>Supabase is not configured yet.</strong><br/>
-            If you are running in production on Vercel, please make sure you set the 
+            <strong>Supabase is not configured yet.</strong><br />
+            If you are running in production on Vercel, please make sure you set the
             <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code> environment variables in your Vercel Project Settings.
           </div>
         )}
