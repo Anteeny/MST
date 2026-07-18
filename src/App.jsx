@@ -10,6 +10,7 @@ import CoursesPage from "./components/CoursesPage";
 import CourseDetailPage from "./components/CourseDetailPage";
 import SubjectsPage from "./components/SubjectsPage";
 import AboutUsPage from "./components/AboutUsPage";
+import ClassroomView from "./components/ClassroomView";
 
 function HomeView() {
   const [data, setData] = useState(initialData);
@@ -61,6 +62,13 @@ function ProtectedRoute({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Localhost development auto-bypass
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      setSession({ user: { id: 'local-dev-user-id', email: 'developer@localhost' } });
+      setLoading(false);
+      return;
+    }
+
     let active = true;
 
     const checkSession = async () => {
@@ -130,6 +138,14 @@ function App() {
           element={
             <ProtectedRoute>
               <CourseDetailPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/classroom/:id" 
+          element={
+            <ProtectedRoute>
+              <ClassroomView />
             </ProtectedRoute>
           } 
         />

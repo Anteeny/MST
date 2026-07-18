@@ -9,9 +9,18 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [course0Progress, setCourse0Progress] = useState(45);
+  const [course1Progress, setCourse1Progress] = useState(15);
 
   useEffect(() => {
     const fetchUserSession = async () => {
+      // Localhost development auto-bypass
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        setUser({ id: 'local-dev-user-id', email: 'developer@localhost', user_metadata: { full_name: 'Developer' } });
+        setLoading(false);
+        return;
+      }
+
       const { data: { session }, error } = await supabase.auth.getSession();
       
       if (error || !session) {
@@ -27,6 +36,9 @@ export default function Dashboard() {
 
     // Set up auth state change listener to redirect immediately if logged out
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return;
+      }
       if (!session) {
         navigate('/sign-in');
       } else {
@@ -43,6 +55,24 @@ export default function Dashboard() {
     await supabase.auth.signOut();
     navigate('/');
   };
+
+  useEffect(() => {
+    // Read dynamic progress values if they exist in localStorage
+    const c0 = localStorage.getItem('course_0_completed');
+    if (c0) {
+      try {
+        const count = JSON.parse(c0).length;
+        setCourse0Progress(Math.round((count / 11) * 100));
+      } catch (e) {}
+    }
+    const c1 = localStorage.getItem('course_1_completed');
+    if (c1) {
+      try {
+        const count = JSON.parse(c1).length;
+        setCourse1Progress(Math.round((count / 5) * 100));
+      } catch (e) {}
+    }
+  }, []);
 
   if (loading) {
     return (
@@ -109,11 +139,11 @@ export default function Dashboard() {
                       <span className="card-badge active-tag">Short Course</span>
                       <h3 className="card-name">Introduction to Trauma-Informed Care</h3>
                       <div className="progress-bar-container">
-                        <div className="progress-bar-fill" style={{ width: '45%' }}></div>
+                        <div className="progress-bar-fill" style={{ width: `${course0Progress}%` }}></div>
                       </div>
                       <div className="card-footer">
-                        <span className="progress-text">45% Completed</span>
-                        <a href="/courses/0" className="btn btn-primary btn-sm">Resume Learning</a>
+                        <span className="progress-text">{course0Progress}% Completed</span>
+                        <Link to="/classroom/0" className="btn btn-primary btn-sm">Resume Learning</Link>
                       </div>
                     </div>
                   </div>
@@ -124,11 +154,11 @@ export default function Dashboard() {
                       <span className="card-badge active-tag">Certificate</span>
                       <h3 className="card-name">Stewardship Keys and Financial Intelligence</h3>
                       <div className="progress-bar-container">
-                        <div className="progress-bar-fill" style={{ width: '15%' }}></div>
+                        <div className="progress-bar-fill" style={{ width: `${course1Progress}%` }}></div>
                       </div>
                       <div className="card-footer">
-                        <span className="progress-text">15% Completed</span>
-                        <a href="/courses/1" className="btn btn-primary btn-sm">Resume Learning</a>
+                        <span className="progress-text">{course1Progress}% Completed</span>
+                        <Link to="/classroom/1" className="btn btn-primary btn-sm">Resume Learning</Link>
                       </div>
                     </div>
                   </div>
@@ -183,15 +213,6 @@ export default function Dashboard() {
                 </div>
               </section>
 
-              {/* Account Quick Info */}
-              <section className="dashboard-section account-info-section">
-                <h3 className="section-title">Account Summary</h3>
-                <ul className="account-details-list">
-                  <li><strong>Account ID:</strong> <span className="mono-text">{user?.id?.substring(0, 8)}...</span></li>
-                  <li><strong>Email:</strong> {user?.email}</li>
-                  <li><strong>Status:</strong> Active</li>
-                </ul>
-              </section>
             </div>
           </div>
         </div>
