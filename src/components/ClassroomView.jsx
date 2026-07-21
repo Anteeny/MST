@@ -28,23 +28,6 @@ export default function ClassroomView() {
   // Authentication gate
   useEffect(() => {
     const checkSession = async () => {
-      // Localhost development auto-bypass
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        setSession({ user: { id: 'local-dev-user-id', email: 'developer@localhost' } });
-        
-        // Load completion progress from localStorage if it exists
-        const storedProgress = localStorage.getItem(`course_${id}_completed`);
-        if (storedProgress) {
-          try {
-            setCompletedItems(JSON.parse(storedProgress));
-          } catch (e) {
-            console.error('Error parsing stored progress', e);
-          }
-        }
-        setLoading(false);
-        return;
-      }
-
       const { data: { session: currentSession } } = await supabase.auth.getSession();
       if (!currentSession) {
         navigate(`/sign-in?redirectTo=${encodeURIComponent(window.location.pathname)}`);

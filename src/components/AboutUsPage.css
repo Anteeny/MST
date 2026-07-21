@@ -966,10 +966,7 @@
     grid-template-columns: 1fr;
   }
   
-  .team-image-box {
-    height: 200px;
-  }
-  
+
   .counselor-info-pane,
   .counselor-form-pane {
     padding: 30px 16px;

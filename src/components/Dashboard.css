@@ -355,22 +355,36 @@
     font-size: 1.75rem;
   }
 
-  .dashboard-navbar-container,
+  .dashboard-layout .navbar-container,
   .dashboard-container {
     padding: 0 16px !important;
   }
 
-  .dashboard-navbar-container .logo-text {
-    display: none;
+  .dashboard-layout .logo-text {
+    display: flex !important;
+  }
+
+  .dashboard-layout .logo-line1 {
+    font-size: 0.82rem !important;
+  }
+
+  .dashboard-layout .logo-line2 {
+    font-size: 0.45rem !important;
+  }
+
+  .welcome-label-desktop {
+    display: none !important;
   }
 
   .user-welcome-badge {
-    font-size: 0.8rem !important;
-    margin-right: 8px !important;
+    font-size: 0.78rem !important;
+    margin-right: 6px !important;
+    white-space: nowrap;
   }
 
   .signout-btn {
-    padding: 6px 12px !important;
-    font-size: 0.8rem !important;
+    padding: 4px 10px !important;
+    font-size: 0.78rem !important;
+    height: 30px !important;
   }
 }

@@ -37,37 +37,37 @@ const Partners = ({
         <div className="container" style={{ width: '100%', maxWidth: '100%' }}>
           <h2 className="partners-title" style={titleSize ? { fontSize: titleSize } : {}}>{title}</h2>
           <div className="partners-grid" style={gap ? { gap: gap } : {}}>
-          {partners.map((partner, index) => {
-            const name = typeof partner === 'string' ? partner : partner.name;
-            const logoUrl = typeof partner === 'object' ? partner.logoUrl : null;
-            const logoWidth = typeof partner === 'object' ? partner.logoWidth || 'auto' : 'auto';
-            const logoHeight = typeof partner === 'object' ? partner.logoHeight || 'auto' : 'auto';
-            return (
-              <div 
-                key={index} 
-                className="partner-logo"
-                style={{
-                  width: logoWidth,
-                  height: logoHeight,
-                  display: logoUrl ? 'flex' : 'block',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                {logoUrl ? (
-                  <img 
-                    src={logoUrl} 
-                    alt={name} 
-                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} 
-                  />
-                ) : (
-                  name
-                )}
-              </div>
-            );
-          })}
+            {partners.map((partner, index) => {
+              const name = typeof partner === 'string' ? partner : partner.name;
+              const logoUrl = typeof partner === 'object' ? partner.logoUrl : null;
+              const logoWidth = typeof partner === 'object' ? partner.logoWidth || 'auto' : 'auto';
+              const logoHeight = typeof partner === 'object' ? partner.logoHeight || 'auto' : 'auto';
+              return (
+                <div 
+                  key={index} 
+                  className="partner-logo"
+                  style={{
+                    width: logoWidth,
+                    height: logoHeight,
+                    display: logoUrl ? 'flex' : 'block',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  {logoUrl ? (
+                    <img 
+                      src={logoUrl} 
+                      alt={name} 
+                      style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} 
+                    />
+                  ) : (
+                    name
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
       </Resizable>
     </section>
   );

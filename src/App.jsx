@@ -62,13 +62,6 @@ function ProtectedRoute({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Localhost development auto-bypass
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      setSession({ user: { id: 'local-dev-user-id', email: 'developer@localhost' } });
-      setLoading(false);
-      return;
-    }
-
     let active = true;
 
     const checkSession = async () => {

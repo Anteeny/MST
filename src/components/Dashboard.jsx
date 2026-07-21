@@ -14,13 +14,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchUserSession = async () => {
-      // Localhost development auto-bypass
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        setUser({ id: 'local-dev-user-id', email: 'developer@localhost', user_metadata: { full_name: 'Developer' } });
-        setLoading(false);
-        return;
-      }
-
       const { data: { session }, error } = await supabase.auth.getSession();
       
       if (error || !session) {
@@ -36,9 +29,6 @@ export default function Dashboard() {
 
     // Set up auth state change listener to redirect immediately if logged out
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return;
-      }
       if (!session) {
         navigate('/sign-in');
       } else {
@@ -98,14 +88,17 @@ export default function Dashboard() {
                 src={logoImg} 
                 alt="Logo" 
                 className="logo-icon" 
-                style={{ width: '50px', height: '50px', objectFit: 'contain' }}
+                style={{ width: '32px', height: '32px', objectFit: 'contain' }}
               />
-              <span className="logo-text">The Mirror School Academy</span>
+              <span className="logo-text">
+                <span className="logo-line1">MIRROR SCHOOL</span>
+                <span className="logo-line2">OF TRANSFORMATION</span>
+              </span>
             </Link>
           </div>
           <div className="navbar-right">
             <span className="user-welcome-badge" style={{ marginRight: '16px', fontSize: '0.95rem' }}>
-              Logged in as: <strong>{userName}</strong>
+              <span className="welcome-label-desktop">Logged in as: </span><strong>{userName}</strong>
             </span>
             <button onClick={handleSignOut} className="btn btn-outline signout-btn">
               Sign Out

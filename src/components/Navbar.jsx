@@ -21,6 +21,9 @@ const Navbar = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [session, setSession] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+  const [mobileSubjectsOpen, setMobileSubjectsOpen] = useState(false);
+  const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
 
   // Monitor the user session state using Supabase auth listener
   useEffect(() => {
@@ -196,12 +199,81 @@ const Navbar = ({
             </button>
           </form>
           <Link to="/" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
-          <Link to="/about-us" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>About Us</Link>
-          <Link to="/about-us#team" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Meet the Team</Link>
-          <Link to="/about-us#books" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Books & Materials</Link>
-          <Link to="/about-us#counselor" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Talk to a Counselor</Link>
-          <Link to="/subjects" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>Subjects</Link>
-          <Link to="/courses" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>Courses</Link>
+          
+          <div 
+            className="mobile-menu-link mobile-menu-dropdown-trigger" 
+            onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+          >
+            <span>About Us</span>
+            <ChevronDown 
+              size={18} 
+              style={{ 
+                transform: mobileAboutOpen ? 'rotate(180deg)' : 'rotate(0deg)', 
+                transition: 'transform 0.2s ease',
+                color: 'var(--color-primary, #0d9488)'
+              }} 
+            />
+          </div>
+          
+          {mobileAboutOpen && (
+            <div className="mobile-sub-menu" style={{ display: 'flex', flexDirection: 'column', paddingLeft: '12px' }}>
+              <Link to="/about-us" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— About Us Overview</Link>
+              <Link to="/about-us#team" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Meet the Team</Link>
+              <Link to="/about-us#books" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Books & Materials</Link>
+              <Link to="/about-us#counselor" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Talk to a Counselor</Link>
+            </div>
+          )}
+          
+          
+          <div 
+            className="mobile-menu-link mobile-menu-dropdown-trigger" 
+            onClick={() => setMobileSubjectsOpen(!mobileSubjectsOpen)}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+          >
+            <span>Subjects</span>
+            <ChevronDown 
+              size={18} 
+              style={{ 
+                transform: mobileSubjectsOpen ? 'rotate(180deg)' : 'rotate(0deg)', 
+                transition: 'transform 0.2s ease',
+                color: 'var(--color-primary, #0d9488)'
+              }} 
+            />
+          </div>
+          
+          {mobileSubjectsOpen && (
+            <div className="mobile-sub-menu" style={{ display: 'flex', flexDirection: 'column', paddingLeft: '12px' }}>
+              <Link to="/subjects" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Subjects Directory</Link>
+              <Link to="/courses?subject=School of Healing" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— School of Healing</Link>
+              <Link to="/courses?subject=School of Money" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— School of Money</Link>
+              <Link to="/courses?subject=School of Leadership" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— School of Leadership</Link>
+            </div>
+          )}
+          
+          <div 
+            className="mobile-menu-link mobile-menu-dropdown-trigger" 
+            onClick={() => setMobileCoursesOpen(!mobileCoursesOpen)}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+          >
+            <span>Courses</span>
+            <ChevronDown 
+              size={18} 
+              style={{ 
+                transform: mobileCoursesOpen ? 'rotate(180deg)' : 'rotate(0deg)', 
+                transition: 'transform 0.2s ease',
+                color: 'var(--color-primary, #0d9488)'
+              }} 
+            />
+          </div>
+          
+          {mobileCoursesOpen && (
+            <div className="mobile-sub-menu" style={{ display: 'flex', flexDirection: 'column', paddingLeft: '12px' }}>
+              <Link to="/courses" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— All Courses</Link>
+              <Link to="/courses?subject=School of Healing" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Healing Programs</Link>
+              <Link to="/courses?subject=School of Money" className="mobile-menu-link mobile-sub-link" onClick={() => setIsMenuOpen(false)}>— Finance & Admin</Link>
+            </div>
+          )}
           {session ? (
             <Link to="/dashboard" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
               My Dashboard
